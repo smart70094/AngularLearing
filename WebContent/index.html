@@ -1,0 +1,20 @@
+<!doctype html>
+<html>
+	<head>
+	
+		<script src="js/angular.min.js" type="text/javascript"></script>
+		<script src="js/app.js" type="text/javascript"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-grid/4.2.4/ui-grid.js" type="text/javascript"></script>
+		<link rel="stylesheet" href="js/ui-grid.min.css" type="text/css"/>
+		
+		
+		
+	</head>
+	
+	<body ng-app="app">
+		<div ng-controller="ctrl as $ctrl">
+  			<div ui-grid="{ data: $ctrl.myData }"></div>
+		</div>
+	</body>
+	
+</html>
