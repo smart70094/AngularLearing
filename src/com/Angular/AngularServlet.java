@@ -1,14 +1,20 @@
+package com.Angular;
 
 
 import java.io.IOException;
+import java.util.List;
+import java.util.Map;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.json.JSONException;
-import org.json.JSONObject;
+
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
+
 
 /**
  * Servlet implementation class AngularServlet
@@ -32,14 +38,17 @@ public class AngularServlet extends HttpServlet {
 		// TODO Auto-generated method stub
 		
 		try {
-			String msg= "{message:'"+request.getParameter("message")+"'}";
-			System.out.println(msg);
+			ApplicationContext context = new ClassPathXmlApplicationContext("Bean.xml");
+			 AngularDao angularDao=(AngularDao)context.getBean("angularDao");
+			List<Map<String,Object>> entries=angularDao.findAll();
+			System.out.println(entries.get(0).get("staff_id"));
 			
-			JSONObject obj=new JSONObject(msg);
 			
+			/*
 			response.setContentType("application/json");
 		    response.setCharacterEncoding("UTF-8");
 		    response.getWriter().print(obj);
+		    */
 		    
 		    
 		} catch (Exception e) {
