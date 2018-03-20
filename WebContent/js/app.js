@@ -1,25 +1,15 @@
-angular.module('app', ['ui.grid'])
-  .controller('ctrl', ctrl);
+var app = angular.module('myApp', ['ngRoute']);
 
-function ctrl() {
-  this.myData = [
-    {
-        firstName: "Cox",
-        lastName: "Carney",
-        company: "Enormo",
-        employed: true
-    },
-    {
-        firstName: "Lorraine",
-        lastName: "Wise",
-        company: "Comveyer",
-        employed: false
-    },
-    {
-        firstName: "Nancy",
-        lastName: "Waters",
-        company: "Fuelton",
-        employed: false
-    }
-  ];
-}
+app.config(function($routeProvider){
+	$routeProvider
+	.when("/data",{
+		templateUrl:"data/data.html",
+		conroller:"data/data.js"
+	});
+});
+
+app.controller("myCtrl",['$scope','$location',function($scope,$location){
+	$scope.search=function($scope){
+		$location.path("/data");
+	};
+}]);
