@@ -11,7 +11,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-
+import org.json.JSONArray;
+import org.json.JSONObject;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
@@ -39,13 +40,24 @@ public class AngularServlet extends HttpServlet {
 		// TODO Auto-generated method stub
 		
 		try {
-			String cmd=request.getParameter("command");
-			process(cmd,request,response);
+			//String cmd=request.getParameter("command");
+			String cmd="findAll";
 			
+			List<Map<String,Object>> entries=process(cmd,request,response);
 			
+			//如果有result，則回傳result(json)
+			if(entries!=null) {
+				
+				JSONArray jsonArray=returnResponse(entries);
 			
-		    
-		    
+				//test result
+				//System.out.println(jsonArray.toString(0));
+				
+				
+				response.setContentType("application/json");
+			    response.setCharacterEncoding("UTF-8");
+			    response.getWriter().print(jsonArray);
+			}
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			System.out.println(e.toString());
@@ -62,20 +74,22 @@ public class AngularServlet extends HttpServlet {
 		doGet(request, response);
 	}
 
-	private void process(String cmd,HttpServletRequest request,HttpServletResponse response) {
+	private List<Map<String,Object>> process(String cmd,HttpServletRequest request,HttpServletResponse response) {
+		List<Map<String,Object>> result=null;
 		switch(cmd) {
 			case "findAll":
-				findAll(request,response);
+				result=findAll(request,response);
 				break;
 			case "update":
 				update(request,response);
 				break;
 		}
+		return result;
 	}
 	
-	private void findAll(HttpServletRequest request,HttpServletResponse response) {
+	private List<Map<String,Object>> findAll(HttpServletRequest request,HttpServletResponse response) {
 		List<Map<String,Object>> entries =angularDao.findAll();
-		returnResponse(entries);
+		return entries;
 	}
 	
 	private void update(HttpServletRequest request,HttpServletResponse response) {
@@ -84,12 +98,31 @@ public class AngularServlet extends HttpServlet {
 		angularDao.update(staff_id,name);
 	}
 	
-	private void returnResponse(List<Map<String,Object>> entries) {
-		/*
-		response.setContentType("application/json");
-	    response.setCharacterEncoding("UTF-8");
-	    response.getWriter().print(obj);
-	    */
+	private JSONArray returnResponse(List<Map<String,Object>> entries) {
+		JSONArray jsonArray=new JSONArray();
+		
+		for(Map<String,Object> map:entries) {
+			
+			JSONObject jsonObj=new JSONObject();
+			
+			for(Map.Entry<String,Object> entry : map.entrySet()) {
+				
+				String key=entry.getKey();
+				Object value=entry.getValue();
+				
+				try {
+					jsonObj.put(key, value);
+				}catch(Exception e) {
+					System.out.println(e.toString());
+				}
+				
+			}
+			
+			jsonArray.put(jsonObj);
+			
+		}
+		
+		return jsonArray;
 	}
 	
 }

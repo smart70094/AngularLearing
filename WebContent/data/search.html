@@ -1,8 +1,8 @@
-<div class="col-md-12" ng-controller='searchCtrl'>
+<div class="" ng-controller='searchCtrl'>
 	<div class="row">
 	
 		<!-- 左方表單 -->
-		<div class="col-md-6">
+		<div class="col-md-6" ng-show="showSearchDiv">
 			<form class="index_content" ng-submit="submit()">
 				<div class="row">
 					<div class="input-group mb-3">
@@ -10,7 +10,7 @@
 							<span class="input-group-text" id="inputGroup-sizing-default">員工編號</span>
 						</div>
 						<input type="text" class="form-control" aria-label="Default"
-							aria-describedby="inputGroup-sizing-default">
+							aria-describedby="inputGroup-sizing-default" ng-model="staff_id" required>
 					</div>
 				</div>
 				
@@ -23,7 +23,7 @@
 							<span class="input-group-text" id="inputGroup-sizing-default">員工姓名</span>
 						</div>
 						<input type="text" class="form-control" aria-label="Default"
-							aria-describedby="inputGroup-sizing-default">
+							aria-describedby="inputGroup-sizing-default" ng-model="name" required>
 					</div>
 				</div>
 
@@ -32,7 +32,7 @@
 						<button class="btn btn-primary" type="submit">查詢</button>
 					</div>
 					<div class="search_btn_padding_left search_btn_padding_top">
-						<button class="btn btn-primary" type="button">清除</button>
+						<button class="btn btn-primary" type="button" ng-click="clear()">清除</button>
 					</div>
 				</div>
 			</form>
@@ -40,8 +40,8 @@
 		
 		<!-- 右方歷史記錄 -->
 		
-		<div class="col-md-6">
-			<table class="table table-hover">
+		<div class="col-md-6" ng-show="showSearchDiv">
+			<table class="table table-hover" ng-table>
 				<thead>
 					<tr>
 						<th scope="col">#</th>
@@ -50,26 +50,19 @@
 					</tr>
 				</thead>
 				<tbody>
-					<tr>
-						<th scope="row">1</th>
-						<td>Mark</td>
-						<td>Otto</td>
+					<tr ng-repeat="user in users" ng-click="select(user.staff_id,user.name)">
+						<th title="number">{{$index+1}}</th>
+						<td title="staff_id">{{user.staff_id}}</td>
+						<td title="name">{{user.name}}</td>
 
-					</tr>
-					<tr>
-						<th scope="row">2</th>
-						<td>Jacob</td>
-						<td>Thornton</td>
-
-					</tr>
-					<tr>
-						<th scope="row">3</th>
-						<td colspan="2">Larry the Bird</td>
-						<td>@twitter</td>
 					</tr>
 				</tbody>
 			</table>
-
+		</div>
+		
+		<!-- 查詢結果 -->
+		<div class="col-md-12" ng-show="!showSearchDiv">
+		
 		</div>
 	</div>
 </div>

@@ -3,6 +3,7 @@ require.config({
     "angular": "//cdnjs.cloudflare.com/ajax/libs/angular.js/1.6.5/angular",
     "ngRoute": "//cdnjs.cloudflare.com/ajax/libs/angular.js/1.6.5/angular-route",
     "bootstrap":"//cdnjs.cloudflare.com/ajax/libs/angular-ui-bootstrap/2.5.0/ui-bootstrap",
+    "ngTable":"//cdnjs.cloudflare.com/ajax/libs/ng-table/1.0.0/ng-table",
     
   },
   
@@ -10,6 +11,7 @@ require.config({
 	  "angular":{exports:"angular"},
 	  "bootstrap":['angular'],
 	  "ngRoute":['angular'],
+	  "ngTable":['angular'],
   }
 
 	
@@ -21,6 +23,7 @@ require([
 	"angular",
 	"ngRoute",
 	"bootstrap",
+	"ngTable",
 	
 	
 	//self
