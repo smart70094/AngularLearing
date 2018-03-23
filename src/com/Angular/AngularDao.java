@@ -26,7 +26,9 @@ public class AngularDao {
 		return results;
     }
 	
-	void add(String... dataList) {
-		
+	void update(String... dataList) {
+		jdbcTemplate.update(
+				"insert into dbo.Table_1 (staff_id,name) values(?,?)",
+				dataList[0],dataList[1]);
 	}
 }

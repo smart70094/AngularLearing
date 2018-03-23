@@ -22,13 +22,14 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
 @WebServlet(urlPatterns={"/AngularServelt"})
 public class AngularServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-       
+	AngularDao angularDao;   
     /**
      * @see HttpServlet#HttpServlet()
      */
     public AngularServlet() {
         super();
-        // TODO Auto-generated constructor stub
+        ApplicationContext context = new ClassPathXmlApplicationContext("Bean.xml");
+		angularDao=(AngularDao)context.getBean("angularDao");
     }
 
 	/**
@@ -38,17 +39,11 @@ public class AngularServlet extends HttpServlet {
 		// TODO Auto-generated method stub
 		
 		try {
-			ApplicationContext context = new ClassPathXmlApplicationContext("Bean.xml");
-			 AngularDao angularDao=(AngularDao)context.getBean("angularDao");
-			List<Map<String,Object>> entries=angularDao.findAll();
-			System.out.println(entries.get(0).get("staff_id"));
+			String cmd=request.getParameter("command");
+			process(cmd,request,response);
 			
 			
-			/*
-			response.setContentType("application/json");
-		    response.setCharacterEncoding("UTF-8");
-		    response.getWriter().print(obj);
-		    */
+			
 		    
 		    
 		} catch (Exception e) {
@@ -67,4 +62,34 @@ public class AngularServlet extends HttpServlet {
 		doGet(request, response);
 	}
 
+	private void process(String cmd,HttpServletRequest request,HttpServletResponse response) {
+		switch(cmd) {
+			case "findAll":
+				findAll(request,response);
+				break;
+			case "update":
+				update(request,response);
+				break;
+		}
+	}
+	
+	private void findAll(HttpServletRequest request,HttpServletResponse response) {
+		List<Map<String,Object>> entries =angularDao.findAll();
+		returnResponse(entries);
+	}
+	
+	private void update(HttpServletRequest request,HttpServletResponse response) {
+		String staff_id=request.getParameter("staff_id");
+		String name=request.getParameter("name");
+		angularDao.update(staff_id,name);
+	}
+	
+	private void returnResponse(List<Map<String,Object>> entries) {
+		/*
+		response.setContentType("application/json");
+	    response.setCharacterEncoding("UTF-8");
+	    response.getWriter().print(obj);
+	    */
+	}
+	
 }
