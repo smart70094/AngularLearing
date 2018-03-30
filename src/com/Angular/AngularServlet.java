@@ -16,6 +16,9 @@ import org.json.JSONObject;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
+import com.Angular.StaffData.AngularDao;
+import com.Angular.StaffData.Staff;
+
 
 /**
  * Servlet implementation class AngularServlet
@@ -39,6 +42,22 @@ public class AngularServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		
+		@SuppressWarnings("unchecked")
+		
+		Staff staff=new Staff();
+		staff.setStaff_id(1111);
+		staff.setName("www");
+		
+		angularDao.insert(staff);
+		
+		/*
+		List<Staff> list=angularDao.findAll();
+		for(Staff s:list) 
+			System.out.println(s.getStaff_id()+" : "+s.getName());
+		*/
+		
+		
+		/*
 		try {
 			//String cmd=request.getParameter("command");
 			String cmd="findAll";
@@ -63,7 +82,7 @@ public class AngularServlet extends HttpServlet {
 			System.out.println(e.toString());
 		}
 		
-		
+		*/
 	}
 
 	/**
@@ -88,14 +107,19 @@ public class AngularServlet extends HttpServlet {
 	}
 	
 	private List<Map<String,Object>> findAll(HttpServletRequest request,HttpServletResponse response) {
-		List<Map<String,Object>> entries =angularDao.findAll();
+		List entries =angularDao.findAll();
 		return entries;
 	}
 	
 	private void update(HttpServletRequest request,HttpServletResponse response) {
-		String staff_id=request.getParameter("staff_id");
+		int staff_id=Integer.parseInt(request.getParameter("staff_id"));
 		String name=request.getParameter("name");
-		angularDao.update(staff_id,name);
+		
+		Staff staff=new Staff();
+		staff.setStaff_id(staff_id);
+		staff.setName(name);
+		
+		angularDao.insert(staff);
 	}
 	
 	private JSONArray returnResponse(List<Map<String,Object>> entries) {

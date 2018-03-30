@@ -50,7 +50,7 @@
 					</tr>
 				</thead>
 				<tbody>
-					<tr ng-repeat="user in users" ng-click="select(user.staff_id,user.name)">
+					<tr ng-repeat="user in users" ng-click="selectRecord(user.staff_id,user.name)">
 						<th title="number">{{$index+1}}</th>
 						<td title="staff_id">{{user.staff_id}}</td>
 						<td title="name">{{user.name}}</td>
@@ -61,8 +61,57 @@
 		</div>
 		
 		<!-- 查詢結果 -->
-		<div class="col-md-12" ng-show="!showSearchDiv">
-		
+		<div class="col-md-12" ng-show="!showSearchDiv" ng-repeat="user in users">
+			<div class="row">
+				<div class="card col-md-4" style="width: 18rem;" ng-click="selectHouse(1)" ng-if="$index%3==0">
+					<img class="card-img-top" src="https://hp1.591.com.tw/house/active/2018/01/24/151678593117884308_210x158.crop.jpg" alt="Card image cap">
+					<div class="card-body">
+						<h5 class="card-title">Card title</h5>
+						<p class="card-text">
+							<ui>
+								<li>
+									{{users[$index]["staff_id"]}}
+								</li>
+							
+								<li>
+									{{users[$index]["name"]}}
+								</li>
+							</ui>
+						</p>
+						<a href="#" class="btn btn-primary">加入追蹤</a>
+					</div>
+				</div>
+
+				<div class="card col-md-4 hose_card_padding_left" style="width: 18rem;" ng-click="selectHouse(2)" ng-if="$index%3==0">
+					<img class="card-img-top" src="https://hp1.591.com.tw/house/active/2018/01/24/151678593117884308_210x158.crop.jpg" alt="Card image cap">
+					<div class="card-body">
+						<h5 class="card-title">Card title</h5>
+						<p class="card-text">
+							<ui>
+								<li>{{users[$index+1]["staff_id"]}}</li>
+	
+								<li>{{users[$index+1]["name"]}}</li>
+							</ui>
+						</p>
+						<a href="#" class="btn btn-primary">加入追蹤</a>
+					</div>
+				</div>
+
+				<div class="card col-md-4" style="width: 18rem;" ng-click="selectHouse(3)" ng-if="$index%3==0">
+					<img class="card-img-top" src="https://hp1.591.com.tw/house/active/2018/01/24/151678593117884308_210x158.crop.jpg" alt="Card image cap">
+					<div class="card-body">
+						<h5 class="card-title">Card title</h5>
+						<p class="card-text">
+								<ui>
+								<li>{{users[$index+2]["staff_id"]}}</li>
+	
+								<li>{{users[$index+2]["name"]}}</li>
+							</ui>
+						</p>
+						<a href="#" class="btn btn-primary">加入追蹤</a>
+					</div>
+				</div>
+			</div>
 		</div>
 	</div>
 </div>

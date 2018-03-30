@@ -25,15 +25,11 @@ require([
 	"bootstrap",
 	"ngTable",
 	
-	
-	//self
-	"data/search",
-	"data/favorite",
-	"data/history",
+	"appConfig",
 
 ],function(angular,ngRoute,bootstrap){
 	
-	var app = angular.module('myApp', ["ngRoute"]);
+	var app = angular.module('app', ["ngRoute"]);
 	
 	app.config(function($routeProvider){
 		$routeProvider
@@ -61,7 +57,7 @@ require([
 	});
 	
 	
-	app.controller("myCtrl",['$scope','$rootScope','$location',function($scope,$rootScope,$location){
+	app.controller("appCtrl",['$scope','$rootScope','$location',function($scope,$rootScope,$location){
 		$scope.search=function($scope){
 			$rootScope.title="查詢";
 			$location.path("/search");
@@ -78,5 +74,5 @@ require([
 		};
 	}]);
 	
-	angular.bootstrap(document, ['myApp','searchApp','favoriteApp','historyApp']);
+	angular.bootstrap(document, ['app','searchApp','favoriteApp','historyApp']);
 });

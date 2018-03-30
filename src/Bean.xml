@@ -13,14 +13,13 @@
 		<property name="password" value="jcsbewnplnq" />
 	</bean>
 
-	<bean id="jdbcTemplate" class="org.springframework.jdbc.core.JdbcTemplate">
-		<property name="dataSource" ref="dataSource" />
+	<bean id="jdbcTemplate" class="org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate">
+		<constructor-arg ref="dataSource" /> 
 	</bean>
 	
-	<bean id="angularDao" class="com.Angular.AngularDao">
+	<bean id="angularDao" class="com.Angular.StaffData.AngularDao">
 		<property name="jdbcTemplate" ref="jdbcTemplate"/>
 	</bean>
-	
 	
 
 </beans>

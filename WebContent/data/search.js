@@ -9,8 +9,12 @@ define(['angular','ngTable'],function(angular){
 		//控制查詢div，左右欄位   預設關閉，因為要test
 		$scope.showSearchDiv=false;
 		
+		//選擇房子物件，顯示詳細資料
+		$scope.showDetailHoseDiv=false;
+		
 		//傳送訊息給後端，進行查調動作
 		$scope.submit=function(){
+			
 			$scope.showSearchDiv=false;
 			/*
 			$http({
@@ -28,8 +32,6 @@ define(['angular','ngTable'],function(angular){
 				  }
 					  
 				}).then(function successCallback(response) {
-
-					console.log(response.data.message);
 					
 					$scope.users=response.data;
 					
@@ -50,11 +52,22 @@ define(['angular','ngTable'],function(angular){
 			$scope.name="";
 		};
 		
-		$scope.select=function(staff_id,name){
+		//選擇記錄
+		$scope.selectRecord=function(staff_id,name){
 			$scope.staff_id=staff_id;
 			$scope.name=name;
 		};
 		
+		//選擇房子物
+		$scope.selectHouse=function(id){
+			$scope.showDetailHoseDiv=true;
+			alert(id);
+		}
+		
+		
+		$scope.range = function(n) {
+		    return new Array(n);
+		};
 		
 		//查詢全部資料
 		$scope.findAll=function(){
@@ -71,10 +84,10 @@ define(['angular','ngTable'],function(angular){
 				  }
 					  
 				}).then(function successCallback(response) {
-
-					console.log(response.data.message);
 					
 					$scope.users=response.data;
+					
+					$scope.dataLength=$scope.users.length;
 					
 					
 				  }, function errorCallback(response) {
@@ -84,10 +97,15 @@ define(['angular','ngTable'],function(angular){
 				  });
 		};
 			
+		
+		
 		// default init IIFE
 		(function(){
 			$scope.findAll();
 		})();
+		
+		
+		
 	}]);
 
 });
